@@ -1,37 +1,63 @@
-//Agregar nueva tarea
-function agregarTarea () {
-    const nuevaTareaInput = document.getElementById('nuevaTarea');
-    const listaTareas = document.getElementById('listaTareas');
-    const nuevaTareaTexto = nuevaTareaInput.value.trim();  
-
-    if(nuevaTareaInput !== "") {
-        const nuevaTarea = document.createElement('li');
-        nuevaTarea.textContent = nuevaTareaTexto;
-
-        const bottonEliminar = document.createElement('button');
-        bottonEliminar.textContent = "Eliminar";
-        bottonEliminar.className = "delete";
-        bottonEliminar.onclick = function(){
-            listaTareas.removeChild(nuevaTarea);
-        };
-
-        nuevaTarea.appendChild(bottonEliminar);
-        listaTareas.appendChild(nuevaTarea);
-        nuevaTareaInput.value = "";
-    }
+// Función para agregar una nueva tarea
+function agregarTarea() {
+  const nuevaTareaInput = document.getElementById("nuevaTarea");
+  const listaTareas = document.getElementById("listaTareas");
+  const nuevaTareaTexto = nuevaTareaInput.value.trim();
+  const error = document.getElementById("error");
+  if (nuevaTareaTexto !== "") {
+    const nuevaTarea = document.createElement("li");
+    nuevaTarea.textContent = nuevaTareaTexto;
+    const botonEliminar = document.createElement("button");
+    botonEliminar.textContent = "Eliminar";
+    botonEliminar.className = "delete";
+    botonEliminar.onclick = function () {
+      listaTareas.removeChild(nuevaTarea);
+    };
+    nuevaTarea.appendChild(botonEliminar);
+    listaTareas.appendChild(nuevaTarea);
+    nuevaTareaInput.value = "";
+    error.style.display = "none";
+  } else {
+    error.style.display = "block";
+  }
+}
+// Función para marcar una tarea como completada
+function marcarCompletada(tarea) {
+  tarea.classList.toggle("completed");
 }
 
-//Funcion para marcar una tarea como completada
-function marcarCompletada (tarea) {
-    tarea.classList.toggle('completed');
-}
-
-//Agregar evento de click a las tareas para marcarlas como completadas
-document.getElementById('listaTareas').addEventListener('click', function(event){
+// Agregar evento de clic a las tareas para marcarlas como completadas;
+document.getElementById("listaTareas").addEventListener("click", function (event) {
     if (event.target.tagName === "LI") {
-        marcarCompletada(event.target);
+      marcarCompletada(event.target);
     }
-});
+  });
+// Agregar evento de clic al botón "Agregar"
+document.getElementById("agregar").addEventListener("click", agregarTarea);
 
-//Agregar evento de click al boton "Agregar"
-document.getElementById('agregarTarea').addEventListener('click', agregarTarea);
+// Función para mostrar tareas completadas
+function mostrarCompletadas() {
+  const tareas = document.querySelectorAll("li");
+  tareas.forEach((tarea) => {
+    if (tarea.classList.contains("completed")) {
+      tarea.style.display = "flex";
+    } else {
+      tarea.style.display = "none";
+    }
+  });
+}
+// Función para mostrar tareas pendientes
+function mostrarPendientes() {
+  const tareas = document.querySelectorAll("li");
+  tareas.forEach((tarea) => {
+    if (!tarea.classList.contains("completed")) {
+      tarea.style.display = "flex";
+    } else {
+      tarea.style.display = "none";
+    }
+  });
+}
+// Agregar evento de clic al botón "Mostrar Completadas"
+document.getElementById("mostrarCompletadas").addEventListener("click", mostrarCompletadas);
+// Agregar evento de clic al botón "Mostrar Pendientes"
+document.getElementById("mostrarPendientes").addEventListener("click", mostrarPendientes);

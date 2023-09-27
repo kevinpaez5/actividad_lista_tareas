@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
     <title>Lista de tareas</title>
 </head>
 <body>
     <h1>Lista de tareas</h1>
-    <input type="text" id="nuevaTarea" placeholder="Ingrese una nueva tarea">
+    <input type="text" id="nuevaTarea" placeholder="Ingrese una nueva tarea" required>
+    <span id="error" style="color: red; display: none;">No se puede agregar una tarea vacía</span>
     <button onclick="agregarTarea()">Agregar tarea</button>
+    <button onclick="mostrarCompletadas()">Mostrar tareas completadas</button>
+    <button onclick="mostrarPendientes()">Mostrar tareas pendientes</button>
     <ul id="listaTareas"></ul>
     <script src="script.js"></script>
 </body>
